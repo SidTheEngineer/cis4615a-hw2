@@ -1,24 +1,37 @@
 // https://wiki.sei.cmu.edu/confluence/display/java/OBJ01-J.+Limit+accessibility+of+fields
-public static class Rule05OBJ01 {
-    public static class Widget {
-        public int total; // Number of elements
-
-        void add() {
-            if (total < Integer.MAX_VALUE) {     
-            total++;
-            // ...
-            } else {
-            throw new ArithmeticException("Overflow");
-            }
+class Widget {
+    private int total; // Declared private
+   
+    public int getTotal () {
+      return total;
+    }
+   
+    void add() {
+        if (total < Integer.MAX_VALUE) {     
+          total++;
+          // ...
+        } else {
+          throw new ArithmeticException("Overflow");
         }
-        
-        void remove() { 
-            if (total > 0) {     
+      }
+     
+    void remove() { 
+        if (total > 0) {     
             total--;
             // ...
-            } else {
+        } else {
             throw new ArithmeticException("Overflow");
-            }
         }
+    }
+}
+
+public class R05_OBJ01_J {
+    public static void main(String[] args) {
+        Widget widget = new Widget();
+
+        // Will not work!
+        // System.out.println(widget.total);
+
+        System.out.println(widget.getTotal());
     }
 }
